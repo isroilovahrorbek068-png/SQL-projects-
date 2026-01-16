@@ -1,0 +1,31 @@
+#database
+import sqlite3
+
+database_sql =sqlite3.connect('comments.db')
+cursor = database_sql.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS  posts(
+ postId INTEGER,
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ name text,
+ email text,
+ body text );
+""")
+database_sql.commit()
+database_sql.close()
+
+#main
+import sqlite3
+
+database_sql =sqlite3.connect('comments.db')
+cursor = database_sql.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS  posts(
+ postId INTEGER,
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ name text,
+ email text,
+ body text );
+""")
+database_sql.commit()
+database_sql.close()

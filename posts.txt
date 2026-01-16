@@ -1,0 +1,39 @@
+#DATA BASE
+import sqlite3
+
+database_sql =sqlite3.connect('hey.db')
+cursor = database_sql.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS  posts(
+userId INTEGER,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+title text,
+body text);
+""")
+database_sql.commit()
+database_sql.close()
+
+#main 
+import sqlite3
+import requests
+from openpyxl.comments import comments
+
+from database import *
+posts = requests.get('https://jsonplaceholder.typicode.com/posts').json()
+
+for post in posts:
+    userId = post['userId']
+    id = post['id']
+    title= post['title']
+    body= post['body']
+
+    database_sql= sqlite3.connect('hey.db')
+    cursor=database_sql.cursor()
+    cursor.execute(
+        "INSERT OR IGNORE INTO posts (userId, id, title, body) VALUES (?, ?, ?, ?)",
+        (userId, id, title, body)
+    )
+    database_sql.commit()
+    database_sql.close()
+
+
